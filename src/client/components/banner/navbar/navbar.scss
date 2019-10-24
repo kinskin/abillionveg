@@ -1,0 +1,27 @@
+.navbar{
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	.search{
+		margin:0 30px;
+		p{
+			font-size: 40px;
+		}
+		p:hover{
+			color:coral;
+			text-decoration: underline white;
+			cursor: pointer;
+		}
+	}
+	.add{
+		margin:0 30px;
+		p{
+			font-size: 40px;
+		}
+		p:hover{
+			color:coral;
+			text-decoration: underline white;
+			cursor: pointer;
+		}
+	}
+}

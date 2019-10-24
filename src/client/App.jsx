@@ -1,26 +1,24 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { hot } from 'react-hot-loader';
-
-import Counter from './components/counter/counter';
-import Form from './components/form/form';
+import style from './style.scss'
+import Banner from './components/banner/banner.jsx'
 
 class App extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      message: 'hello',
-    };
-  }
+    constructor() {
+        super();
+        this.state = {
+          message: 'Vegan Recipe'
+        };
+    }
 
-  render() {
-    return (
-      <div>
-        <Form />
-        Welcome.
-        <Counter message={this.state.message} />
-      </div>
-    );
-  }
+    render() {
+        return (
+            <Fragment>
+                <Banner />
+                <h1>{this.state.message}</h1>
+            </Fragment>
+        );
+    }
 }
 
 export default hot(module)(App);
