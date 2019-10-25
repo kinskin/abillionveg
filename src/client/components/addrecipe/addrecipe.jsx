@@ -19,6 +19,13 @@ export default class AddRecipe extends React.Component{
                     </div>
                     <div className='col-6'>
                         <Preview/>
+                        <ul>
+                            <li>PLACEHOLDER</li>
+                            <li>PLACEHOLDER</li>
+                            <li>PLACEHOLDER</li>
+                            <li>PLACEHOLDER</li>
+                        </ul>
+                        <p>Lorem Ipsum Dolor A Amet</p>
                     </div>
                 </div>
             </div>
