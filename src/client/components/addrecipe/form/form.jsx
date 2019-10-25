@@ -25,6 +25,10 @@ export default class Form extends React.Component{
         this.setState({title: event.target.value})
     }
 
+    uploadImageHandler(url){
+        console.log('this is the url: ', url)
+    }
+
     addIngredient(){
         this.setState({ingredients: [...this.state.ingredients, '']})
     }
@@ -54,6 +58,7 @@ export default class Form extends React.Component{
     }
 
     render(){
+
         let ingredientInput = this.state.ingredients.map((ingredient,index)=>{
             return (
                 <div className={style.indivIng} key={index}>
@@ -84,7 +89,7 @@ export default class Form extends React.Component{
                         <label>Recipe name: </label>
                         <input className={style.inputTitle} placeholder="Recipe name" onChange={(event)=>this.recipeNameHandler(event)}/>
                     </div>
-                    <ImageUpload/>
+                    <ImageUpload uploadImage={(url)=>{this.uploadImageHandler(url)}}/>
                     <div className={style.formBodyIngredient}>
                         <label>Ingredients</label>
                         {ingredientInput}
@@ -102,11 +107,3 @@ export default class Form extends React.Component{
         )
     }
 }
-
-export const ReactExample = (props) => (
-  <select name={props.name} value={props.value} onChange={props.handleChange}>
-    <option value="A">Apple</option>
-    <option value="B">Banana</option>
-    <option value="C">Cranberry</option>
-  </select>
-)
