@@ -1,0 +1,61 @@
+.formHeader{
+	margin:20px;
+	p{
+		font-size: 25px;
+		text-decoration: underline;
+	}
+}
+.formBody{
+	.formBodyName{
+		display: flex;
+		flex-direction: row;
+		align-items: baseline;
+		label{
+			font-size: 20px;
+			margin:0 30px;
+		}
+		input{
+			font-size: 20px;
+			width: 50%;
+		}
+	}
+	.formBodyIngredient{
+		margin:15px 0;
+		label{
+			text-decoration: underline;
+			font-size: 20px;
+			margin:10px 30px;
+		}
+		.indivIng{
+			margin:20px;
+			display: block;
+			input{
+				width:50%;
+			}
+		}
+
+	}
+	.formBodyInstruction{
+		margin:15px 0;
+	}
+}
+
+
+
+.formSubmit{
+	margin:20px;
+	button{
+		background-color: transparent;
+		border:1px solid lightcoral;
+		border-radius:50px;
+		font-size: 18px;
+		height: 2.53rem;
+		width:10rem;
+	}
+	button:focus{
+		outline:none;
+	}
+	button::after{
+		opacity: 0.5;
+	}
+}
