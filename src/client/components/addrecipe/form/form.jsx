@@ -1,13 +1,13 @@
 import React, {Fragment} from 'react';
 import style from './form.scss'
 
-import ImageUpload from './imageupload/imageupload.jsx'
-
 export default class Form extends React.Component{
     constructor(){
         super()
         this.state = {
+            loading: false,
             title: '',
+            image: '',
             ingredients: [],
             instruction: [],
             recipe: []
@@ -25,8 +25,23 @@ export default class Form extends React.Component{
         this.setState({title: event.target.value})
     }
 
-    uploadImageHandler(url){
-        console.log('this is the url: ', url)
+    uploadImageHandler(event){
+        let url =   `https://api.cloudinary.com/v1_1/kinskin/image/upload`
+        const files = event.target.files
+        const data = new FormData()
+        data.append('file', files[0])
+        data.append('upload_preset', 'recipekeeper')
+        this.setState({loading: true}, ()=>{
+            fetch(url,
+                {
+                    method: 'POST',
+                    body: data
+                }
+            )
+            .then(response => response.json())
+            .then(data => this.setState({image:data.secure_url,loading:false}))
+            .catch(err => console.log('err: ', err))
+        })
     }
 
     addIngredient(){
@@ -58,7 +73,7 @@ export default class Form extends React.Component{
     }
 
     render(){
-
+        let loading = this.state.loading
         let ingredientInput = this.state.ingredients.map((ingredient,index)=>{
             return (
                 <div className={style.indivIng} key={index}>
@@ -81,23 +96,32 @@ export default class Form extends React.Component{
 
         return(
             <div className={'text-center'}>
-                <div className={style.formHeader}>
-                    <p>New Recipe</p>
-                </div>
+
                 <div className={style.formBody}>
                     <div className={style.formBodyName}>
                         <label>Recipe name: </label>
                         <input className={style.inputTitle} placeholder="Recipe name" onChange={(event)=>this.recipeNameHandler(event)}/>
                     </div>
-                    <ImageUpload uploadImage={(url)=>{this.uploadImageHandler(url)}}/>
-                    <div className={style.formBodyIngredient}>
-                        <label>Ingredients</label>
-                        {ingredientInput}
-                        <br/>
-                        <button onClick={()=>this.addIngredient()}>Add ingredient</button>
+                    <div className='my-4'>
+                        <input type="file" name="file" placeholder="Upload an image" onChange={(event)=>this.uploadImageHandler(event)}/>
+                        { loading ?
+                            ( <iframe src="https://giphy.com/embed/3oEjI6SIIHBdRxXI40" width="200" height="200" frameBorder="0" className="giphy-embed" allowFullScreen></iframe> ) : ( <img src={this.state.image} style={{ width: '300px' }} />
+                        )}
                     </div>
-                    <div className={style.formBodyInstruction}>
-                        <button>Add instruction</button>
+                    <div className='row'>
+                        <div className='col-6'>
+                            <div className={style.formBodyIngredient}>
+                                <label>Ingredients</label>
+                                {ingredientInput}
+                                <br/>
+                                <button onClick={()=>this.addIngredient()}>Add ingredient</button>
+                            </div>
+                        </div>
+                        <div className='col-6'>
+                            <div className={style.formBodyInstruction}>
+                                <button>Add instruction</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div className={style.formSubmit}>

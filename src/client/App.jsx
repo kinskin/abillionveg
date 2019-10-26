@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import style from './style.scss'
 import Banner from './components/banner/banner.jsx'
 import Search from './components/search/search.jsx'
-import AddRecipe from './components/addrecipe/addrecipe.jsx'
+import Form from './components/form/form.jsx'
 
 
 class App extends React.Component {
@@ -33,7 +33,7 @@ class App extends React.Component {
         if(showSearch === true && showAddRecipe === false){
             display = <Search/>
         } else {
-            display = <AddRecipe/>
+            display = <Form/>
         }
         return (
             <Fragment>
