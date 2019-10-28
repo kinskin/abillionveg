@@ -7,6 +7,7 @@ import style from './style.scss'
 import Banner from './components/banner/banner.jsx'
 import Search from './components/search/search.jsx'
 import Form from './components/form/form.jsx'
+import Recipe from './components/recipe/recipe.jsx'
 
 
 class App extends React.Component {
@@ -15,6 +16,8 @@ class App extends React.Component {
         this.state = {
             showSearch: true,
             showAddRecipe: false,
+            showRecipe:false,
+            selectedRecipe:'',
             recipe:{
                 id:1,
                 title: 'Beef rendang',
@@ -128,12 +131,28 @@ componentDidMount(){
         this.setState({showSearch:true, showAddRecipe:false})
     }
 
+    showRecipeHandler(recipe){
+        this.setState({showRecipe:true, selectedRecipe:recipe})
+    }
+
     render() {
         let display;
         let showSearch = this.state.showSearch
         let showAddRecipe = this.state.showAddRecipe
+        let showRecipe = this.state.showRecipe
         if(showSearch === true && showAddRecipe === false){
-            display = <Search recipe={[this.state.recipe]}/>
+            if(showRecipe === false){
+                display = <Search recipe={[this.state.recipe]} showRecipeHandler={(recipe)=>this.showRecipeHandler(recipe)}/>
+            }else{
+                display =   <div className='row'>
+                                <div className='col-6'>
+                                    <Search recipe={[this.state.recipe]} showRecipeHandler={(recipe)=>this.showRecipeHandler(recipe)}/>
+                                </div>
+                                <div className='col-6'>
+                                    <Recipe selectedRecipe={this.state.selectedRecipe}/>
+                                </div>
+                            </div>
+            }
         } else {
             display = <Form searchHandler={()=>this.searchHandler()}/>
         }
@@ -143,7 +162,9 @@ componentDidMount(){
                     searchClickHandler={()=>this.searchClickHandler()}
                     addRecipeClickHandler={()=>this.addRecipeClickHandler()}>
                 </Banner>
-                {display}
+                <div className={style.content}>
+                    {display}
+                </div>
             </Fragment>
         );
     }

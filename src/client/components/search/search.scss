@@ -1,0 +1,40 @@
+.search{
+	text-align: center;
+	.searchHeader{
+		margin: 20px;
+		p{
+			font-size: 40px;
+			font-family: 'Satisfy', cursive;
+		}
+	}
+	.searchInput{
+		margin:15px 0;
+		input{
+			height: 3rem;
+			margin:1%;
+			width:25%;
+			text-indent: 5px;
+		}
+		input::placeholder{
+			text-indent: 5px;
+		}
+	}
+	.searchDisplay{
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		.indivRecipe{
+			margin:20px;
+			p{
+				margin:15px;
+				font-size: 20px;
+				font-family: 'Satisfy', cursive;
+			}
+			p:hover{
+				color:lightcoral;
+				text-decoration: underline lightcoral;
+				cursor: pointer;
+			}
+		}
+	}
+}

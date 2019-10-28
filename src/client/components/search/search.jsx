@@ -1,4 +1,5 @@
 import React, {Fragment} from 'react';
+import style from './search.scss'
 
 export default class Search extends React.Component{
     constructor(props){
@@ -25,13 +26,21 @@ export default class Search extends React.Component{
         this.setState({filter: result})
     }
 
+    showRecipeHandler(){
+        let recipe = this.state.recipe
+        let result = recipe.filter(recipe=>recipe.id==event.target.id)
+        this.props.showRecipeHandler(result[0])
+    }
+
     render(){
+
         let displayRecipe;
         let filter = this.state.filter
         if(filter.length < 0){
             displayRecipe = this.props.recipe.map((recipe,index)=>{
                 return(
-                    <div>
+                    <div className={style.indivRecipe} key={index}>
+                        <img src={recipe.image} style={{width:'200px'}}/>
                         <p>{recipe.title}</p>
                     </div>
                 )
@@ -40,20 +49,25 @@ export default class Search extends React.Component{
         else{
             displayRecipe = filter.map((recipe,index)=>{
                 return(
-                    <div>
-                        <p>{recipe.title}</p>
+                    <div className={style.indivRecipe} key={index}>
+                        <img src={recipe.image} style={{width:'200px'}}/>
+                        <p id={recipe.id} onClick={()=>this.showRecipeHandler()}>{recipe.title}</p>
                     </div>
                 )
             })
         }
 
         return(
-            <div>
-                <h1>Hello Search</h1>
-                <div>
-                    <input onChange={(event)=>this.searchHandler(event)}/>
+            <div className={style.search}>
+                <div className={style.searchHeader}>
+                    <p>Search for recipe</p>
                 </div>
-                {displayRecipe}
+                <div className={style.searchInput}>
+                    <input onChange={(event)=>this.searchHandler(event)} placeholder='Search recipe'/>
+                </div>
+                <div className={style.searchDisplay}>
+                    {displayRecipe}
+                </div>
             </div>
         )
     }
