@@ -13,8 +13,14 @@ export default class Form extends React.Component{
             ingredient: [],
             ingredientType: [],
             instruction: [],
-            recipe: []
+            recipe: ''
         }
+    }
+
+    componentDidMount(){
+        let savedRecipe = JSON.parse(localStorage.getItem('recipe'))
+        let recipe = this.state.recipe
+        this.setState({recipe: savedRecipe})
     }
 
     removeIngHandler(index){
@@ -89,16 +95,35 @@ export default class Form extends React.Component{
     }
 
     instructionHandler(event,index){
-        console.log(index)
-        console.log(event.target.value)
+        let instruction = this.state.instruction
+        instruction[index] = event.target.value
     }
 
     submitHandler(){
-        console.log('submitting')
-        console.log(this.state.quantity)
-        console.log(this.state.quantityType)
-        console.log(this.state.ingredient)
-        console.log(this.state.ingredientType)
+        let recipe = this.state.recipe
+        let recipeLength = recipe.length
+        let newIngredients = [];
+        for (let i = 0; i < this.state.ingredient.length; i++){
+            let ingredientData = {
+                quantity: this.state.quantity[i],
+                quantityType: this.state.quantityType[i],
+                ingredient: this.state.ingredient[i],
+                ingredientType: this.state.ingredientType[i]
+            }
+            newIngredients.push(ingredientData)
+        }
+        let data = {
+            id: recipeLength+1,
+            title : this.state.title,
+            image : this.state.image,
+            ingredients: newIngredients,
+            instruction: this.state.instruction
+        }
+        recipe.push(data)
+        this.setState({recipe: recipe},()=>{
+            localStorage.setItem('recipe',JSON.stringify(this.state.recipe))
+            this.props.searchHandler()
+        })
     }
 
     render(){
@@ -126,7 +151,8 @@ export default class Form extends React.Component{
         let instructionInput = this.state.instruction.map((instruction,index)=>{
             return(
                 <div className={style.instruction} key={index}>
-                    <i className='bx bx-x' style={{fontSize:'20px'}} onClick={()=>this.removeIstHandler(index)}></i>
+                    <p>Step {index+1}: </p>
+                    <i className='bx bx-x' onClick={()=>this.removeIstHandler(index)}></i>
                     <input onChange={(event)=>this.instructionHandler(event,index)} placeholder='Instruction'/>
                 </div>
             )
