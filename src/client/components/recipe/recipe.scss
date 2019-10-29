@@ -1,0 +1,39 @@
+.recipe{
+	font-family: 'Satisfy', cursive;
+	.recipeHeader{
+		margin:20px;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-around;
+		align-items:baseline;
+		.recipeTitle{
+			text-align: center;
+			p{
+				font-size: 40px;
+			}
+		}
+		.recipeBackButton{
+			i{
+				font-size: 30px;
+			}
+			i:hover{
+				cursor:pointer;
+				box-shadow: 5px 10px;
+			}
+		}
+	}
+	.recipeBody{
+		.recipeImage{
+			text-align: center;
+		}
+		.heading{
+			margin:10px;
+			text-align: center;
+			font-size: 30px;
+			text-decoration: underline;
+		}
+		li{
+			font-size: 20px;
+		}
+	}
+}

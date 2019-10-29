@@ -135,6 +135,10 @@ componentDidMount(){
         this.setState({showRecipe:true, selectedRecipe:recipe})
     }
 
+    handleBackButton(){
+        this.setState({showRecipe:false})
+    }
+
     render() {
         let display;
         let showSearch = this.state.showSearch
@@ -149,7 +153,7 @@ componentDidMount(){
                                     <Search recipe={[this.state.recipe]} showRecipeHandler={(recipe)=>this.showRecipeHandler(recipe)}/>
                                 </div>
                                 <div className='col-6'>
-                                    <Recipe selectedRecipe={this.state.selectedRecipe}/>
+                                    <Recipe selectedRecipe={this.state.selectedRecipe} handleBackButton={()=>this.handleBackButton()}/>
                                 </div>
                             </div>
             }

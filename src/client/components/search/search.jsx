@@ -6,7 +6,8 @@ export default class Search extends React.Component{
         super(props)
         this.state = {
             recipe: props.recipe,
-            filter:[]
+            filter:[],
+            searchInput: ''
         }
     }
 
@@ -14,22 +15,24 @@ export default class Search extends React.Component{
         let savedRecipe = JSON.parse(localStorage.getItem('recipe'))
         if(savedRecipe !== null){
             savedRecipe[0] = JSON.parse(savedRecipe[0])
-            this.setState({recipe: savedRecipe},()=>{
+            this.setState({recipe: savedRecipe, filter:savedRecipe},()=>{
                 console.log(this.state.recipe)
             })
         }
     }
 
     searchHandler(event){
+        console.log(event.target.value)
         let recipe = this.state.recipe
         let result = recipe.filter(recipe=>recipe.title.includes(event.target.value))
-        this.setState({filter: result})
+        this.setState({filter:result, searchInput:event.target.value})
     }
 
     showRecipeHandler(){
         let recipe = this.state.recipe
         let result = recipe.filter(recipe=>recipe.id==event.target.id)
         this.props.showRecipeHandler(result[0])
+        console.log(result[0])
     }
 
     render(){
@@ -63,7 +66,7 @@ export default class Search extends React.Component{
                     <p>Search for recipe</p>
                 </div>
                 <div className={style.searchInput}>
-                    <input onChange={(event)=>this.searchHandler(event)} placeholder='Search recipe'/>
+                    <input onChange={(event)=>this.searchHandler(event)} placeholder='Search recipe' value={this.state.searchInput}/>
                 </div>
                 <div className={style.searchDisplay}>
                     {displayRecipe}
